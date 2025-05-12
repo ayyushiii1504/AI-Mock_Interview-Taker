@@ -10,22 +10,25 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
 router.post("/start", async (req, res) => {
   try {
-    const { userId } = req.body;
-    if (!userId) {
-      return res.status(400).json({ error: "User ID is required" });
+    const { userId, field } = req.body;
+
+    if (!userId || !field) {
+      return res.status(400).json({ error: "User ID and field are required" });
     }
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-    const prompt = "Generate 5 interview questions for a software developer.";
+
+    // Generate prompt dynamically based on selected field
+    const prompt = `Generate 5 interview questions for a ${field} position.`;
 
     const result = await model.generateContent({ contents: [{ parts: [{ text: prompt }] }] });
     const response = result.response;
-    
+
     if (!response || !response.candidates || response.candidates.length === 0) {
       throw new Error("No questions received from AI");
     }
 
-    const questions = response.candidates[0].content.parts[0].text.split("\n");
+    const questions = response.candidates[0].content.parts[0].text.split("\n").filter(q => q.trim() !== "");
 
     res.json({ userId, questions });
   } catch (error) {
@@ -33,6 +36,7 @@ router.post("/start", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 router.post("/submit", async (req, res) => {
   try {
