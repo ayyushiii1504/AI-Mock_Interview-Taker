@@ -74,7 +74,7 @@ npm run dev
 
 
 Ayushi Singh
-GitHub: @ayyushiii1504
+
 
 
 
