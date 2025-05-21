@@ -1,6 +1,6 @@
 # 🤖 AI Mock Interview Taker
 
-A full-stack MERN (MongoDB, Express, React, Node.js) web application that simulates technical mock interviews using **Google Gemini 1.5 Pro**. It allows users to practice real-time domain-specific questions, receive AI-generated feedback, and track their progress.
+A full-stack MERN (MongoDB, Express, React, Node.js) web application that simulates technical mock interviews using **Google Gemini 1.5 Flash**. It allows users to practice real-time domain-specific questions, receive AI-generated feedback, and track their progress.
 
 
 ## 🌟 Features
@@ -20,7 +20,7 @@ A full-stack MERN (MongoDB, Express, React, Node.js) web application that simula
 - **Frontend**: React.js, React Router, CSS Modules / Bootstrap
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB Atlas
-- **AI Model**: Google Gemini 1.5 Pro (via API)
+- **AI Model**: Google Gemini 1.5 Flash (via API)
 - **Authentication**: JWT (JSON Web Tokens)
 
 
