@@ -1,25 +1,54 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/Authcontext";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useContext(AuthContext);
+
+
+  useEffect(() => {
+    try {
+      console.log("Disabling scroll");
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = "hidden";
+  
+      return () => {
+        console.log("Restoring scroll");
+        document.body.style.overflow = originalStyle;
+      };
+    } catch (error) {
+      console.error("Error in useEffect:", error);
+    }
+  }, []);
+  
+  
+
+
+  const handleStart = () => {
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    } else {
+      alert("Please login first to start the interview.");
+      navigate("/login");
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      {/* Hero Section */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6" style={{ height: "100vh" }}>      {/* Hero Section */}
       <div className="text-center max-w-3xl">
         <h1 className="text-5xl font-bold text-blue-700">Ace Your Next Interview with AI!</h1>
         <p className="mt-4 text-lg text-gray-700">
-          Get real-time feedback, practice industry-standard questions, and improve your interview skills 
-          with our AI-powered mock interview system.
+          Get real-time feedback, practice industry-standard questions, and improve your interview skills with our AI-powered mock interview system.
         </p>
 
         {/* Call to Action */}
-        <Link 
-          to="/dashboard" 
+        <button
+          onClick={handleStart}
           className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-blue-700 transition duration-300"
         >
           Start Practicing
-        </Link>
+        </button>
       </div>
 
       {/* Features Section */}
@@ -44,8 +73,7 @@ const Home = () => {
       <div className="mt-12 text-center max-w-2xl">
         <h2 className="text-2xl font-semibold text-gray-800">🚀 Get Ready to Land Your Dream Job!</h2>
         <p className="text-gray-600 mt-3">
-          Whether you're preparing for technical interviews or behavioral questions, our AI-driven platform 
-          is here to help you succeed.
+          Whether you're preparing for technical interviews or behavioral questions, our AI-driven platform is here to help you succeed.
         </p>
       </div>
     </div>

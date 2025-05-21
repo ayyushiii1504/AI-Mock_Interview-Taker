@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -12,7 +12,20 @@ const Register = () => {
   });
 
   const [error, setError] = useState("");
-
+  useEffect(() => {
+      try {
+        console.log("Disabling scroll");
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = "hidden";
+    
+        return () => {
+          console.log("Restoring scroll");
+          document.body.style.overflow = originalStyle;
+        };
+      } catch (error) {
+        console.error("Error in useEffect:", error);
+      }
+    }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -90,7 +103,7 @@ const Register = () => {
         </form>
 
         <p className="text-sm text-gray-600 mt-3 text-center">
-          Already have an account?{" "}
+          Already have an account ?{" "}
           <span className="text-blue-500 cursor-pointer" onClick={() => navigate("/login")}>
             Login
           </span>

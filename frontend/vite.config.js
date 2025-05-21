@@ -8,4 +8,9 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   
   plugins: [react(), tailwindcss(),],
+  define: {
+    'process.env': {
+      VITE_API_BASE_URL: JSON.stringify('http://localhost:18000/api'),
+    },
+  },
 })

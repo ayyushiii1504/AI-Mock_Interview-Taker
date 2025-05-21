@@ -30,9 +30,20 @@ const Interview = () => {
 
 
 
-  const handleFinishInterview = () => {
-    navigate("/feedback", { state: { userId, responses } });
+  const handleFinishInterview = async () => {
+    try {
+      const response = await axios.post("http://localhost:18000/api/interview/feedback", {
+        userId,
+        responses,
+      });
+  
+      const feedback = response.data.feedback;
+      navigate("/feedback", { state: { feedback } });
+    } catch (error) {
+      console.error("Error fetching feedback:", error.response?.data || error.message);
+    }
   };
+  
 
   const updateResponses = (index, answer) => {
     setResponses((prev) => ({ ...prev, [index]: answer }));
@@ -42,17 +53,6 @@ const Interview = () => {
     <>
       <div className="container mx-auto p-4">
           <h2 className="font-semibold text-center text-3xl mb-4">Mock Interview - {field}</h2>
-
-      
-
-
-
-
-
-
-
-
-
 
         {questions.length === 0 ? (
           <p className="text-center">Loading questions...</p>

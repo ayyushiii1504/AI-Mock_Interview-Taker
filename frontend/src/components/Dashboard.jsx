@@ -19,6 +19,8 @@ const Dashboard = () => {
           <option value="Software Engineering">Software Engineering</option>
           <option value="Electrical Engineering">Electrical Engineering</option>
           <option value="Civil Engineering">Civil Engineering</option>
+          <option value="Data Scientist">Data Scientist</option>
+          <option value="Mechanical Engineering">Mechanical Engineering</option>
         </select>
       </div>
 
